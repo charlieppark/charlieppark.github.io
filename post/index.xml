@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on CharliePark</title>
+    <link>https://charlieppark.github.io/post/</link>
+    <description>Recent content in Posts on CharliePark</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>kr-ko</language>
+    <managingEditor>32181928@dankook.ac.kr (Charlie Park)</managingEditor>
+    <webMaster>32181928@dankook.ac.kr (Charlie Park)</webMaster>
+    <lastBuildDate>Sun, 16 Aug 2020 23:39:44 +0900</lastBuildDate>
+    
+	<atom:link href="https://charlieppark.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Test</title>
+      <link>https://charlieppark.github.io/post/test/</link>
+      <pubDate>Sun, 16 Aug 2020 23:39:44 +0900</pubDate>
+      <author>32181928@dankook.ac.kr (Charlie Park)</author>
+      <guid>https://charlieppark.github.io/post/test/</guid>
+      <description>First Devlog Page test  이것 저것 따질 것 없이, 그냥 무던하게. 그냥 그런가 보다.. 하는 거야 :)
+  He that grasps too much, holds nothing.
+  Life Is C Between B and D.
+  Fluctuat nec mergitur / 파도에 흔들릴지언정 가라앉지 않는다
+ </description>
+    </item>
+    
+  </channel>
+</rss>
