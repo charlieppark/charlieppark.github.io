@@ -1,1 +1,17 @@
+---
+title: TITLE
+date: YYYY-MM-DD HH:MM:SS +/-TTTT
+categories: [TOP_CATEGORIE, SUB_CATEGORIE]
+tags: [TAG]     # TAG names should always be lowercase
+toc: true
+comments: true
+math: true
+mermaid: false
+img_path: /img/path/
+pin: false
+---
 
+![img-description](/path/to/image){: width="700" height="400", }
+_Image Caption_
+
+{% include embed/{Platform}.html id='{ID}' %}
