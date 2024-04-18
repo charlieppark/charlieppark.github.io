@@ -8,7 +8,6 @@ toc: false
 comments: true
 math: true
 mermaid: false
-img_path: /images/2023-06-27/
 pin: false
 title: "krrish94/chamferdist 와 pytorch의 결과 차이" 
 ---
