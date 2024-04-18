@@ -2,7 +2,7 @@
 date: 2023-06-27 22:00
 categories: Software
 author: charlieppark
-image: /images/sw.png
+image: ../sw.png
 tag: [Software, python, chamferdist, Pytorch3D]
 toc: false
 comments: true
