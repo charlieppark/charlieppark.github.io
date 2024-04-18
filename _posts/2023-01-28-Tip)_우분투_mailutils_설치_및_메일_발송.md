@@ -27,7 +27,7 @@ $ sudo apt install mailutils
 
 만약 설치 시에 `E: Sub-process /usr/bin/dpkg returned an error code (1)` 에러가 발생하면 아래의 포스트를 참고해주세요
 
-[E: Sub-process /usr/bin/dpkg returned an error code (1) 발생할 때](/tech/2301281530/)
+<!-- [E: Sub-process /usr/bin/dpkg returned an error code (1) 발생할 때](/tech/2301281530/) -->
 
 이제 메일을 발송해봅니다. `user_to`와 `email_to`에는 받을 사람의 이메일 주소를 알맞게 넣어주면 되고, `user_from`과 `email_from`에는 보내는 사람의 메일 주소를 넣어주는데 이는 실제 존재하는 메일이 아니어도 괜찮습니다.
 
