@@ -8,7 +8,7 @@ author: charlieppark
 comments: true
 math: true
 mermaid: false
-img_path: /images
+# img_path: /images
 image: /img/img.png
 pin: false
 ---
