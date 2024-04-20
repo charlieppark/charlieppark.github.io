@@ -1,6 +1,6 @@
 ---
 date: 2023-06-27 22:00
-categories: Software
+categories: [Software, Open Source]
 author: charlieppark
 image: /images/sw.png
 tag: [Software, python, chamferdist, Pytorch3D]

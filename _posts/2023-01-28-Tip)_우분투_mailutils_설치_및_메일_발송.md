@@ -1,6 +1,6 @@
 ---
 date: 2023-01-28 16:00
-categories: Others
+categories: [Others, Ubuntu]
 author: charlieppark
 image: /images/ubuntu.png
 tag: [Others, Tip, Ubuntu, Mailutils, Mail, Server]
