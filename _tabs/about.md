@@ -46,7 +46,7 @@ Mar. 2018 – Aug. 2023, Yongin, South Korea
 
 ## Work Experience
 
-**D.pre. inc.** [Homepage](http://dpre.co.kr/) | [Solution](http://dpre.kr/)  
+**D.pre. inc.**
 _Senior Developer_  
 Sep. 2024 – Dec. 2024, Jeonju, South Korea  
 - Research & Development on 3D Representation Rendering and Processing  
