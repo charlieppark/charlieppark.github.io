@@ -207,3 +207,6 @@ jekyll-archives:
 
 
 # Updated favicons in _site/assets/img/favicons
+
+plugins:
+  - jekyll-redirect-from
