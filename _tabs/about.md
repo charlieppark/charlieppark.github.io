@@ -42,9 +42,9 @@ Mar. 2018 – Aug. 2023, Yongin, South Korea
    [Project page](https://posterior-distillation-sampling.github.io/) | [Paper](https://arxiv.org/abs/2311.13831) | [Code](https://github.com/KAIST-Geometric-AI-Group/PDS)
 
 2. **Perspective-Aware Reasoning in Vision-Language Models via Mental Imagery Simulation**  
-   Phillip Y. Lee, Jihyeon Je, **Chanho Park**, Mikaela Angelina Uy, Leonidas Guibas, Minhyuk Sung
-   ICCV 2025
-   [Project page](https://https://apc-vlm.github.io/) | [Paper](https://arxiv.org/abs/2504.17207)
+   Phillip Y. Lee, Jihyeon Je, **Chanho Park**, Mikaela Angelina Uy, Leonidas Guibas, Minhyuk Sung  
+   ICCV 2025  
+   [Project page](https://apc-vlm.github.io/) | [Paper](https://arxiv.org/abs/2504.17207)
 
 ---
 
