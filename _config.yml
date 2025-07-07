@@ -1,0 +1,46 @@
+# Basic Information 
+title: Chanho Park (Charlie Park)
+position: Master's Student
+affiliation: Korea Advanced Institute of Science and Technology (KAIST)
+affiliation_link: https://kaist.ac.kr/
+affiliation_logo: ./assets/charlieppark/title_logo_tight.png
+email: charlieppark@kaist.ac.kr
+
+# Search Engine Optimization (SEO)
+keywords: Chanho Park, Park Chanho, charlieppark, Charlie Park, KAIST, Korea Advanced Institute of Science and Technology, Master's Student, Multimodal LLMs, 3D Generative Models, Physically-Based Rendering, Computer Vision, Computer Graphics, Artificial Intelligence, Machine Learning
+canonical: https://charlieppark.kr/
+description: Chanho Park is a Master's Student at the Graduate School of Metaverse at KAIST. His research lies in Multimodal LLMs, 3D Generative Models and Physically-Based Rendering.
+
+# The option is used to enable the Illinois template.
+enable_hopkins_logo: false
+
+# The option is used to show the last update time.
+enable_last_update: false
+
+# Links
+link_type: icon #text/icon
+google_scholar: https://scholar.google.com/citations?user=iMG8GOgAAAAJ
+github_link: https://github.com/charlieppark/
+linkedin: https://www.linkedin.com/in/charlieppark/
+twitter: https://x.com/_charlieppark/
+
+# Images 
+avatar: ./assets/charlieppark/profile.jpeg
+
+# Footnotes
+footnote: charlieppark's personal website, built with the minimal-light theme. Thanks to Yaoyao Liu for creating this great theme.
+footnote_link: https://charlieppark.kr/
+
+# Analytics
+# Please remove the following lines about analytics services if you fork my project. 
+# Otherwise, the analytics information of your website will be recorded to my ClustrMaps accounts.
+clustrmaps_id: CQz1XPJy9wJFlgOhgiI28cpHUfebja0_C907tIP8lr8
+
+# The following files will be removed from the generated website.
+exclude:
+  - build.sh
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - LICENSE
+  - CNAME
