@@ -71,6 +71,8 @@
         Hint 2
       </button>
 
+      <br></br>
+
       <!-- this text is initially invisible -->
       <span
         id="hintFeedback2"
@@ -172,69 +174,109 @@
       const fb1  = document.getElementById('hintFeedback1');
 
       // when the user presses the button
-      hint1.addEventListener('mousedown', () => {
+      hint1.addEventListener('touchstart', e => {
         hint1.style.opacity = '0';
         fb1.style.opacity = '1';
-      });
+        e.preventDefault();
+      }, {passive:false});
 
-      // when they release (or drag off)
-      ['mouseup','mouseleave'].forEach(evt =>
-        hint1.addEventListener(evt, () => {
-          hint1.style.opacity = '1';
-          fb1.style.opacity = '0';
-        })
-      );
+      // // when they release (or drag off)
+      // ['mouseup','mouseleave'].forEach(evt =>
+      //   hint1.addEventListener(evt, () => {
+      //     hint1.style.opacity = '1';
+      //     fb1.style.opacity = '0';
+      //   })
+      // );
+
+      hint1.addEventListener('touchend',   () => {
+        hint1.style.opacity = '1';
+        fb1.style.opacity = '0'
+      });
+      hint1.addEventListener('touchcancel',() => {
+        hint1.style.opacity = '1';
+        fb1.style.opacity = '0'
+      });
 
       const hint2 = document.getElementById('hintBtn2');
       const fb2  = document.getElementById('hintFeedback2');
 
       // when the user presses the button
-      hint2.addEventListener('mousedown', () => {
+      hint2.addEventListener('touchstart', e => {
         hint2.style.opacity = '0';
         fb2.style.opacity = '1';
-      });
+        e.preventDefault();
+      }, {passive:false});
 
-      // when they release (or drag off)
-      ['mouseup','mouseleave'].forEach(evt =>
-        hint2.addEventListener(evt, () => {
-          hint2.style.opacity = '1';
-          fb2.style.opacity = '0';
-        })
-      );
+      // // when they release (or drag off)
+      // ['mouseup','mouseleave'].forEach(evt =>
+      //   hint2.addEventListener(evt, () => {
+      //     hint2.style.opacity = '1';
+      //     fb2.style.opacity = '0';
+      //   })
+      // );
+
+      hint2.addEventListener('touchend',   () => {
+        hint2.style.opacity = '1';
+        fb2.style.opacity = '0'
+      });
+      hint2.addEventListener('touchcancel',() => {
+        hint2.style.opacity = '1';
+        fb2.style.opacity = '0'
+      });
 
       const hint3 = document.getElementById('hintBtn3');
       const fb3  = document.getElementById('hintFeedback3');
 
       // when the user presses the button
-      hint3.addEventListener('mousedown', () => {
+      hint3.addEventListener('touchstart', e => {
         hint3.style.opacity = '0';
         fb3.style.opacity = '1';
-      });
+        e.preventDefault();
+      }, {passive:false});
 
-      // when they release (or drag off)
-      ['mouseup','mouseleave'].forEach(evt =>
-        hint3.addEventListener(evt, () => {
-          hint3.style.opacity = '1';
-          fb3.style.opacity = '0';
-        })
-      );
+      // // when they release (or drag off)
+      // ['mouseup','mouseleave'].forEach(evt =>
+      //   hint3.addEventListener(evt, () => {
+      //     hint3.style.opacity = '1';
+      //     fb3.style.opacity = '0';
+      //   })
+      // );
+
+      hint3.addEventListener('touchend',   () => {
+        hint3.style.opacity = '1';
+        fb3.style.opacity = '0'
+      });
+      hint3.addEventListener('touchcancel',() => {
+        hint3.style.opacity = '1';
+        fb3.style.opacity = '0'
+      });
 
       const hint4 = document.getElementById('hintBtn4');
       const fb4  = document.getElementById('hintFeedback4');
 
       // when the user presses the button
-      hint4.addEventListener('mousedown', () => {
+      hint4.addEventListener('touchstart', e => {
         hint4.style.opacity = '0';
         fb4.style.opacity = '1';
-      });
+        e.preventDefault();
+      }, {passive:false});
 
-      // when they release (or drag off)
-      ['mouseup','mouseleave'].forEach(evt =>
-        hint4.addEventListener(evt, () => {
-          hint4.style.opacity = '1';
-          fb4.style.opacity = '0';
-        })
-      );
+      // // when they release (or drag off)
+      // ['mouseup','mouseleave'].forEach(evt =>
+      //   hint4.addEventListener(evt, () => {
+      //     hint4.style.opacity = '1';
+      //     fb4.style.opacity = '0';
+      //   })
+      // );
+
+      hint4.addEventListener('touchend',   () => {
+        hint4.style.opacity = '1';
+        fb4.style.opacity = '0'
+      });
+      hint4.addEventListener('touchcancel',() => {
+        hint4.style.opacity = '1';
+        fb4.style.opacity = '0'
+      });
     })();
   </script>
 </body>
