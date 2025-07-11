@@ -17,9 +17,61 @@
   </div>
 
   <div style="margin-top:240px;padding-top:10rem;text-align:center;">
-    <h2 style="margin-bottom:1rem;">Quiz 3 – Phrase Input</h2>
+    <h2 style="margin-bottom:1rem;">Quiz 3</h2>
     <div style="margin:0 auto 1rem;max-width:300px;">
-  <input id="ans" type="text" style="width:100%;padding:0.5rem;border:1px solid #ccc;border-radius:4px;"/>
+
+    <!-- ← add position:relative here! -->
+    <div style="
+      position:relative;
+      width:260px;      /* total width for 4 boxes + gaps */
+      height:30px;      /* match your inputs’ height */
+      margin:0 auto 1rem;
+    ">
+      <input
+        id="d1" type="text" maxlength="4"
+        style="
+          position:absolute; left:0;    top:0;
+          width:50px;   height:30px;
+          text-align:center;
+          font-size:1rem;
+          border:1px solid #ccc;
+          border-radius:4px;
+        "
+      />
+      <input
+        id="d2" type="text" maxlength="6"
+        style="
+          position:absolute; left:65px; top:0;
+          width:50px;   height:30px;
+          text-align:center;
+          font-size:1rem;
+          border:1px solid #ccc;
+          border-radius:4px;
+        "
+      />
+      <input
+        id="d3" type="text" maxlength="5"
+        style="
+          position:absolute; left:130px; top:0;
+          width:50px;    height:30px;
+          text-align:center;
+          font-size:1rem;
+          border:1px solid #ccc;
+          border-radius:4px;
+        "
+      />
+      <input
+        id="d4" type="text" maxlength="5"
+        style="
+          position:absolute; left:195px; top:0;
+          width:50px;    height:30px;
+          text-align:center;
+          font-size:1rem;
+          border:1px solid #ccc;
+          border-radius:4px;
+        "
+      />
+    </div>
 </div>
 <button id="submitBtn" disabled style="padding:0.6rem 1.2rem;font-size:1rem;background:#000;color:#fff;border:none;border-radius:4px;cursor:pointer;">Submit</button>
   </div>
@@ -27,10 +79,34 @@
   <script src="js/scripts.js"></script>
   <script>
     renderShape();
+    // (function(){
+    //   const inps = [d1,d2,d3,d4];
+    //   const btn = submitBtn;
+    //   inps.forEach((inp,i)=>{inp.addEventListener('input',e=>{e.target.value=e.target.value.trim();});});
+    //   btn.addEventListener('click',()=>{
+    //     const text = inps.map(x=>x.value.toLowerCase()).join(' ');
+    //     checkAnswer(3,text,'good before great ahead','quiz4.html');}
+    //   );
+    // })();
     (function(){
-      const inp = ans, btn = submitBtn;
-      inp.addEventListener('input',()=>btn.disabled=!inp.value.trim());
-      btn.addEventListener('click',()=>checkAnswer(3,inp.value,'Good before great ahead.','quiz4.html'));
+      const inps = [d1, d2, d3, d4];
+      const btn  = submitBtn;
+      inps.forEach((inp,i)=>{
+        inp.addEventListener('input', e=>{
+          // just trim whitespace, allow letters
+          e.target.value = e.target.value.trim();
+          // if (e.target.value && i<3) inps[i+1].focus();
+          btn.disabled = inps.some(x=>!x.value);
+        });
+        // inp.addEventListener('keydown', e=>{
+        //   if (e.key==='Backspace' && !inp.value && i>0)
+        //     inps[i-1].focus();
+        // });
+      });
+      btn.addEventListener('click', ()=>{
+        const phrase = inps.map(x=>x.value).join(' ').toLowerCase();
+        checkAnswer(3, phrase, 'good before greatness ahead', 'quiz4.html');
+      });
     })();
   </script>
 </body>

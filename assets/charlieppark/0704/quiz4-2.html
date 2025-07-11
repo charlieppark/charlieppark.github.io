@@ -10,18 +10,35 @@
       <div data-id="2" onclick="location.href='quiz2.html'" style="position:absolute;left:62.5%;bottom:66px;width:20px;height:20px;border:2px solid #000;border-radius:50%;background:var(--dot2,#fff);transform:translate(-50%,-50%);cursor:pointer;"></div>
       <div data-id="3" onclick="location.href='quiz3.html'" style="position:absolute;left:75%;bottom:132px;width:20px;height:20px;border:2px solid #000;border-radius:50%;background:var(--dot3,#fff);transform:translate(-50%,-50%);cursor:pointer;"></div>
       <div data-id="4" onclick="location.href='quiz4.html'" style="position:absolute;left:87.5%;bottom:200px;width:20px;height:20px;border:2px solid #000;border-radius:50%;background:var(--dot4,#fff);transform:translate(-50%,-50%);cursor:pointer;"></div>
-      <div data-id="5" onclick="location.href='quiz5.html'" style="position:absolute;left:100%;bottom:266px;width:20px;height:20px;border:2px solid #000;border-radius:50%;background:var(--dot5,#fff);transform:translate(-50%,-50%) rotate(90deg);cursor:pointer;"></div>
-      <div data-id="6" onclick="location.href='quiz6.html'" style="position:absolute;left:50%;bottom:266px;width:20px;height:20px;border:2px solid #000;border-radius:50%;background:var(--dot6,#fff);transform:translate(-50%,-50%);cursor:pointer;"></div>
+      <div data-id="5" onclick="location.href='quiz5.html'" style="visibility:hidden;position:absolute;left:100%;bottom:266px;width:20px;height:20px;border:2px solid #000;border-radius:50%;background:var(--dot5,#fff);transform:translate(-50%,-50%) rotate(90deg);cursor:pointer;"></div>
+      <div data-id="6" onclick="location.href='quiz6.html'" style="visibility:hidden;position:absolute;left:50%;bottom:266px;width:20px;height:20px;border:2px solid #000;border-radius:50%;background:var(--dot6,#fff);transform:translate(-50%,-50%);cursor:pointer;"></div>
       <div data-id="7" onclick="location.href='quiz7.html'" style="visibility:hidden;position:absolute;left:0%;bottom:266px;width:20px;height:20px;border:2px solid #000;border-radius:50%;background:var(--dot7,#fff);transform:translate(-50%,-50%);cursor:pointer;"></div>
     </div>
   </div>
 
   <div style="margin-top:240px;padding-top:10rem;text-align:center;">
-    <h2 style="margin-bottom:1rem;">Quiz 6</h2>
-    <img style="margin:0 auto 1rem;max-width:1000px;" src="https://file.notion.so/f/f/f931f9cd-d14b-4be5-8dd0-8a9ac88ad575/123d6288-d1fa-497f-9782-f448742fee9d/Group_15.png?table=block&id=22d131fb-9ea6-80b9-87a7-f5c488af1bf2&spaceId=f931f9cd-d14b-4be5-8dd0-8a9ac88ad575&expirationTimestamp=1752278400000&signature=pqNnf94B8Wmtpxi_t9bJF4kKjtEnQkCw8Ml0Jq8Fun8&downloadName=Group+15.png">
-    <p style="margin-bottom:1rem;">단서를 따라 길을 따라가보자..!</p>
+    <h2 style="margin-bottom:1rem;">Quiz 4</h2>
+    <img style="margin:0 auto 1rem;max-width:1000px;" src="https://file.notion.so/f/f/f931f9cd-d14b-4be5-8dd0-8a9ac88ad575/ddc2915a-22f5-4cc3-b902-3306710e5db1/Group_2.png?table=block&id=22d131fb-9ea6-8088-a500-df0c9a412802&spaceId=f931f9cd-d14b-4be5-8dd0-8a9ac88ad575&expirationTimestamp=1752271200000&signature=CHlLSb6gC4tUJdKORYMHNgzIGNY2YH3R0QRKMECCfBI&downloadName=Group+2.png">
     <div style="margin:0 auto 1rem;max-width:300px;">
-  <input id="ans" type="text" style="width:100%;padding:0.5rem;border:1px solid #ccc;border-radius:4px;"/>
+      <div style="
+        position:relative;
+        width:50px;
+        height:30px;
+        margin:0 auto 1rem;
+      ">
+        <a style="position:absolute; right:50px; top:0; font-size:2rem;">a</a>
+        <input
+          id="ans" type="text" maxlength="1"
+          style="
+            position:absolute; left:25px; top:0;
+            width:50px;    height:30px;
+            text-align:center;
+            font-size:2rem;
+            border:1px solid #ccc;
+            border-radius:4px;
+          "
+        />
+      </div>
 </div>
 <button id="submitBtn" disabled style="padding:0.6rem 1.2rem;font-size:1rem;background:#000;color:#fff;border:none;border-radius:4px;cursor:pointer;">Submit</button>
   </div>
@@ -31,8 +48,13 @@
     renderShape();
     (function(){
       const inp = ans, btn = submitBtn;
-      inp.addEventListener('input',()=>btn.disabled=!inp.value.trim());
-      btn.addEventListener('click',()=>checkAnswer(6,'','','quiz6-2.html'));
+      inp.addEventListener('input',e=>{
+        // just trim whitespace, allow letters
+        e.target.value = e.target.value.trim().toLowerCase();
+        // if (e.target.value && i<3) inps[i+1].focus();
+        btn.disabled = inps.some(x=>!x.value);
+      });
+      btn.addEventListener('click',()=>checkAnswer(4,inp.value,'r','quiz4-3.html'));
     })();
   </script>
 </body>

@@ -17,9 +17,27 @@
   </div>
 
   <div style="margin-top:240px;padding-top:10rem;text-align:center;">
-    <h2 style="margin-bottom:1rem;">Quiz 4 – Museum Acronym</h2>
+    <h2 style="margin-bottom:1rem;">Quiz 4</h2>
+    <img style="margin:0 auto 1rem;max-width:1000px;" src="https://file.notion.so/f/f/f931f9cd-d14b-4be5-8dd0-8a9ac88ad575/fae76bc9-636b-48a8-bada-adcd4051d21a/Group_1.png?table=block&id=22d131fb-9ea6-8085-8f9f-fabe89e0cd4f&spaceId=f931f9cd-d14b-4be5-8dd0-8a9ac88ad575&expirationTimestamp=1752278400000&signature=Ss0Bqjw8mhkvMPRtlLm-HZ0a0ZENtUxFBjjXX3HLozg&downloadName=Group+1.png">
     <div style="margin:0 auto 1rem;max-width:300px;">
-  <input id="ans" type="text" style="width:100%;padding:0.5rem;border:1px solid #ccc;border-radius:4px;"/>
+      <div style="
+        position:relative;
+        width:50px;
+        height:30px;
+        margin:0 auto 1rem;
+      ">
+        <input
+          id="ans" type="text" maxlength="1"
+          style="
+            position:absolute; left:0px; top:0;
+            width:50px;    height:30px;
+            text-align:center;
+            font-size:2rem;
+            border:1px solid #ccc;
+            border-radius:4px;
+          "
+        />
+      </div>
 </div>
 <button id="submitBtn" disabled style="padding:0.6rem 1.2rem;font-size:1rem;background:#000;color:#fff;border:none;border-radius:4px;cursor:pointer;">Submit</button>
   </div>
@@ -29,8 +47,13 @@
     renderShape();
     (function(){
       const inp = ans, btn = submitBtn;
-      inp.addEventListener('input',()=>btn.disabled=!inp.value.trim());
-      btn.addEventListener('click',()=>checkAnswer(4,inp.value,'arko','quiz5.html'));
+      inp.addEventListener('input',e=>{
+        // just trim whitespace, allow letters
+        e.target.value = e.target.value.trim().toLowerCase();
+        // if (e.target.value && i<3) inps[i+1].focus();
+        btn.disabled = inps.some(x=>!x.value);
+      });
+      btn.addEventListener('click',()=>checkAnswer(4,inp.value,'a','quiz4-2.html'));
     })();
   </script>
 </body>
