@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>Quiz 1 – 4-Digit Code</title></head>
+<body style="margin:0;font-family:sans-serif;">
+
+  <!-- Fixed 7-dot “7” Shape Header -->
+  <div style="position:fixed;top:0;left:0;right:0;height:200px;display:flex;justify-content:center;align-items:flex-start;padding-top:10rem;background:#fff;z-index:1000;">
+    <div style="position:relative;width:200px;height:200px;overflow:visible;">
+      <div data-id="1" onclick="location.href='quiz1.html'" style="position:absolute;left:50%;bottom:0;width:20px;height:20px;border:2px solid #000;border-radius:50%;background:var(--dot1,#fff);transform:translate(-50%,-50%);cursor:pointer;"></div>
+      <div data-id="2" onclick="location.href='quiz2.html'" style="position:absolute;left:62.5%;bottom:66px;width:20px;height:20px;border:2px solid #000;border-radius:50%;background:var(--dot2,#fff);transform:translate(-50%,-50%);cursor:pointer;"></div>
+      <div data-id="3" onclick="location.href='quiz3.html'" style="position:absolute;left:75%;bottom:132px;width:20px;height:20px;border:2px solid #000;border-radius:50%;background:var(--dot3,#fff);transform:translate(-50%,-50%);cursor:pointer;"></div>
+      <div data-id="4" onclick="location.href='quiz4.html'" style="visibility:hidden;position:absolute;left:87.5%;bottom:200px;width:20px;height:20px;border:2px solid #000;border-radius:50%;background:var(--dot4,#fff);transform:translate(-50%,-50%);cursor:pointer;"></div>
+      <div data-id="5" onclick="location.href='quiz5.html'" style="visibility:hidden;position:absolute;left:100%;bottom:266px;width:20px;height:20px;border:2px solid #000;border-radius:50%;background:var(--dot5,#fff);transform:translate(-50%,-50%) rotate(90deg);cursor:pointer;"></div>
+      <div data-id="6" onclick="location.href='quiz6.html'" style="visibility:hidden;position:absolute;left:50%;bottom:266px;width:20px;height:20px;border:2px solid #000;border-radius:50%;background:var(--dot6,#fff);transform:translate(-50%,-50%);cursor:pointer;"></div>
+      <div data-id="7" onclick="location.href='quiz7.html'" style="visibility:hidden;position:absolute;left:0%;bottom:266px;width:20px;height:20px;border:2px solid #000;border-radius:50%;background:var(--dot7,#fff);transform:translate(-50%,-50%);cursor:pointer;"></div>
+    </div>
+  </div>
+
+  <div style="margin-top:240px;padding-top:10rem;text-align:center;">
+    <h2 style="margin-bottom:1rem;">Quiz 3 – Phrase Input</h2>
+    <div style="margin:0 auto 1rem;max-width:300px;">
+  <input id="ans" type="text" placeholder="Good before, greatness ahead." style="width:100%;padding:0.5rem;border:1px solid #ccc;border-radius:4px;"/>
+</div>
+<button id="submitBtn" disabled style="padding:0.6rem 1.2rem;font-size:1rem;background:#000;color:#fff;border:none;border-radius:4px;cursor:pointer;">Submit</button>
+  </div>
+
+  <script src="js/scripts.js"></script>
+  <script>
+    renderShape();
+    (function(){
+      const inp = ans, btn = submitBtn;
+      inp.addEventListener('input',()=>btn.disabled=!inp.value.trim());
+      btn.addEventListener('click',()=>checkAnswer(3,inp.value,'Good before, great ahead.','quiz4.html'));
+    })();
+  </script>
+</body>
+</html>

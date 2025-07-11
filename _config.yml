@@ -3,7 +3,7 @@ title: Chanho Park (Charlie Park)
 position: Master's Student
 affiliation: Korea Advanced Institute of Science and Technology (KAIST)
 affiliation_link: https://kaist.ac.kr/
-affiliation_logo: ./assets/charlieppark/title_logo_tight.png
+affiliation_logo: https://charlieppark.kr/assets/charlieppark/title_logo_tight.png
 email: charlieppark@kaist.ac.kr
 
 # Search Engine Optimization (SEO)
@@ -25,7 +25,7 @@ linkedin: https://www.linkedin.com/in/charlieppark/
 twitter: https://x.com/_charlieppark/
 
 # Images 
-avatar: ./assets/charlieppark/profile.jpeg
+avatar: https://charlieppark.kr/assets/charlieppark/profile.jpeg
 
 # Footnotes
 footnote: charlieppark's personal website, built with the minimal-light theme. Thanks to Yaoyao Liu for creating this great theme.
