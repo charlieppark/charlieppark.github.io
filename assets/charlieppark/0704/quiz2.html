@@ -17,8 +17,144 @@
   </div>
 
   <div style="margin-top:240px;padding-top:10rem;text-align:center;">
-    <h2 style="margin-bottom:1rem;">Quiz 2 – Address Input</h2>
+    <h2 style="margin-bottom:1rem;">Quiz 2</h2>
     <div style="margin:0 auto 1rem;max-width:300px;">
+
+    <!-- wrap the button so we can absolutely position the feedback text -->
+    <div style="position: relative; display: inline-block;">
+      <button
+        id="hintBtn1"
+        style="
+          padding:0.6rem 1.2rem;
+          font-size:1rem;
+          background:#000;
+          color:#fff;
+          border:none;
+          border-radius:4px;
+          cursor:pointer;
+        "
+      >
+        Hint 1
+      </button>
+
+      <!-- this text is initially invisible -->
+      <span
+        id="hintFeedback1"
+        style="
+          position: absolute;
+          top: 50%;
+          left: 20%;
+          transform: translate(-50%, -50%);
+          color: #000;
+          font-size: 0.9rem;
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.1s ease-in-out;
+        "
+      >압구정로데오</span>
+    </div>
+
+    <!-- wrap the button so we can absolutely position the feedback text -->
+    <div style="position: relative; display: inline-block;">
+      <button
+        id="hintBtn2"
+        style="
+          padding:0.6rem 1.2rem;
+          font-size:1rem;
+          background:#000;
+          color:#fff;
+          border:none;
+          border-radius:4px;
+          cursor:pointer;
+        "
+      >
+        Hint 2
+      </button>
+
+      <!-- this text is initially invisible -->
+      <span
+        id="hintFeedback2"
+        style="
+          position: absolute;
+          top: 50%;
+          left: 20%;
+          transform: translate(-50%, -50%);
+          color: #000;
+          font-size: 0.9rem;
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.1s ease-in-out;
+        "
+      >06014</span>
+    </div>
+
+    <!-- wrap the button so we can absolutely position the feedback text -->
+    <div style="position: relative; display: inline-block;">
+      <button
+        id="hintBtn3"
+        style="
+          padding:0.6rem 1.2rem;
+          font-size:1rem;
+          background:#000;
+          color:#fff;
+          border:none;
+          border-radius:4px;
+          cursor:pointer;
+        "
+      >
+        Hint 3
+      </button>
+
+      <!-- this text is initially invisible -->
+      <span
+        id="hintFeedback3"
+        style="
+          position: absolute;
+          top: 50%;
+          left: 20%;
+          transform: translate(-50%, -50%);
+          color: #000;
+          font-size: 0.9rem;
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.1s ease-in-out;
+        "
+      >김밥</span>
+    </div>
+
+    <!-- wrap the button so we can absolutely position the feedback text -->
+    <div style="position: relative; display: inline-block;">
+      <button
+        id="hintBtn4"
+        style="
+          padding:0.6rem 1.2rem;
+          font-size:1rem;
+          background:#000;
+          color:#fff;
+          border:none;
+          border-radius:4px;
+          cursor:pointer;
+        "
+      >
+        Hint 4
+      </button>
+
+      <!-- this text is initially invisible -->
+      <span
+        id="hintFeedback4"
+        style="
+          position: absolute;
+          top: 50%;
+          left: 20%;
+          transform: translate(-50%, -50%);
+          color: #000;
+          font-size: 0.9rem;
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.1s ease-in-out;
+        "
+      > ✶ ✶ </span>
+    </div>
   <input id="ans" type="text" style="width:100%;padding:0.5rem;border:1px solid #ccc;border-radius:4px;"/>
 </div>
 <button id="submitBtn" disabled style="padding:0.6rem 1.2rem;font-size:1rem;background:#000;color:#fff;border:none;border-radius:4px;cursor:pointer;">Submit</button>
@@ -31,6 +167,74 @@
       const inp = ans, btn = submitBtn;
       inp.addEventListener('input',()=>btn.disabled=!inp.value.trim());
       btn.addEventListener('click',()=>checkAnswer(2,inp.value,'서울 강남구 선릉로158길 11','quiz3.html'));
+
+      const hint1 = document.getElementById('hintBtn1');
+      const fb1  = document.getElementById('hintFeedback1');
+
+      // when the user presses the button
+      hint1.addEventListener('mousedown', () => {
+        hint1.style.opacity = '0';
+        fb1.style.opacity = '1';
+      });
+
+      // when they release (or drag off)
+      ['mouseup','mouseleave'].forEach(evt =>
+        hint1.addEventListener(evt, () => {
+          hint1.style.opacity = '1';
+          fb1.style.opacity = '0';
+        })
+      );
+
+      const hint2 = document.getElementById('hintBtn2');
+      const fb2  = document.getElementById('hintFeedback2');
+
+      // when the user presses the button
+      hint2.addEventListener('mousedown', () => {
+        hint2.style.opacity = '0';
+        fb2.style.opacity = '1';
+      });
+
+      // when they release (or drag off)
+      ['mouseup','mouseleave'].forEach(evt =>
+        hint2.addEventListener(evt, () => {
+          hint2.style.opacity = '1';
+          fb2.style.opacity = '0';
+        })
+      );
+
+      const hint3 = document.getElementById('hintBtn3');
+      const fb3  = document.getElementById('hintFeedback3');
+
+      // when the user presses the button
+      hint3.addEventListener('mousedown', () => {
+        hint3.style.opacity = '0';
+        fb3.style.opacity = '1';
+      });
+
+      // when they release (or drag off)
+      ['mouseup','mouseleave'].forEach(evt =>
+        hint3.addEventListener(evt, () => {
+          hint3.style.opacity = '1';
+          fb3.style.opacity = '0';
+        })
+      );
+
+      const hint4 = document.getElementById('hintBtn4');
+      const fb4  = document.getElementById('hintFeedback4');
+
+      // when the user presses the button
+      hint4.addEventListener('mousedown', () => {
+        hint4.style.opacity = '0';
+        fb4.style.opacity = '1';
+      });
+
+      // when they release (or drag off)
+      ['mouseup','mouseleave'].forEach(evt =>
+        hint4.addEventListener(evt, () => {
+          hint4.style.opacity = '1';
+          fb4.style.opacity = '0';
+        })
+      );
     })();
   </script>
 </body>
