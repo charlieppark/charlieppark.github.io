@@ -19,7 +19,7 @@
   <div style="margin-top:240px;padding-top:10rem;text-align:center;">
     <h2 style="margin-bottom:1rem;">Quiz 3 – Phrase Input</h2>
     <div style="margin:0 auto 1rem;max-width:300px;">
-  <input id="ans" type="text" placeholder="Good before, greatness ahead." style="width:100%;padding:0.5rem;border:1px solid #ccc;border-radius:4px;"/>
+  <input id="ans" type="text" style="width:100%;padding:0.5rem;border:1px solid #ccc;border-radius:4px;"/>
 </div>
 <button id="submitBtn" disabled style="padding:0.6rem 1.2rem;font-size:1rem;background:#000;color:#fff;border:none;border-radius:4px;cursor:pointer;">Submit</button>
   </div>
@@ -30,7 +30,7 @@
     (function(){
       const inp = ans, btn = submitBtn;
       inp.addEventListener('input',()=>btn.disabled=!inp.value.trim());
-      btn.addEventListener('click',()=>checkAnswer(3,inp.value,'Good before, great ahead.','quiz4.html'));
+      btn.addEventListener('click',()=>checkAnswer(3,inp.value,'Good before great ahead.','quiz4.html'));
     })();
   </script>
 </body>
