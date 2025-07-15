@@ -1,5 +1,13 @@
 main:
 
+  - title: "Perspective-Aware Reasoning in Vision-Language Models via Mental Imagery Simulation"
+    authors: Phillip Y. Lee, Jihyeon Je, <strong>Chanho Park</strong>, Mikaela Angelina Uy, Leonidas Guibas, Minhyuk Sung
+    conference_short: ICCV
+    conference: International Conference on Computer Vision <strong>(ICCV)</strong>, 2025.
+    pdf: https://arxiv.org/pdf/2504.17207
+    page: https://apc-vlm.github.io/    
+    image: https://apc-vlm.github.io/static/images/teaser_apc.jpg
+
   - title: "Posterior Distillation Sampling"
     authors: Juil Koo, <strong>Chanho Park</strong>, Minhyuk Sung
     conference_short: CVPR
@@ -9,12 +17,3 @@ main:
     code: https://github.com/KAIST-Visual-AI-Group/PDS
     page: https://posterior-distillation-sampling.github.io/
     image: https://posterior-distillation-sampling.github.io/static/figures/teaser.png
-
-  - title: "Perspective-Aware Reasoning in Vision-Language Models via Mental Imagery Simulation"
-    authors: Phillip Y. Lee, Jihyeon Je, <strong>Chanho Park</strong>, Mikaela Angelina Uy, Leonidas Guibas, Minhyuk Sung
-    conference_short: ICCV
-    conference: International Conference on Computer Vision <strong>(ICCV)</strong>, 2025.
-    pdf: https://arxiv.org/pdf/2504.17207
-    page: https://apc-vlm.github.io/    
-    image: https://apc-vlm.github.io/static/images/teaser_apc.jpg
-
