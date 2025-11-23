@@ -1,4 +1,10 @@
 main:
+  
+  - title: "BoxSplitGen: A Generative Model for 3D Part Bounding Boxes in Varying Granularity"
+    authors: Juil Koo*, Wei-Tung Lin*, <strong>Chanho Park</strong>, Chanhyeok Park, Minhyuk Sung (* equal contributions)
+    conference_short: WACV
+    conference: Winter Conference on Applications of Computer Vision <strong>(WACV)</strong>, 2026.
+    image: https://visualai.kaist.ac.kr/assets/thumbnails/boxsplitgen-thumbnail.png
 
   - title: "Perspective-Aware Reasoning in Vision-Language Models via Mental Imagery Simulation"
     authors: Phillip Y. Lee, Jihyeon Je, <strong>Chanho Park</strong>, Mikaela Angelina Uy, Leonidas Guibas, Minhyuk Sung
@@ -17,3 +23,4 @@ main:
     code: https://github.com/KAIST-Visual-AI-Group/PDS
     page: https://posterior-distillation-sampling.github.io/
     image: https://posterior-distillation-sampling.github.io/static/figures/teaser.png
+
