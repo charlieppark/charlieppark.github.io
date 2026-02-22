@@ -1,4 +1,10 @@
 main:
+
+  - title: "Token Warping Helps MLLMs Look from Nearby Viewpoints"
+    authors: Phillip Y. Lee*, <strong>Chanho Park*</strong>, Mingue Park, Seungwoo Yoo, Juil Koo, Minhyuk Sung (* equal contributions)
+    conference_short: CVPR
+    conference: The IEEE/CVF Conference on Computer Vision and Pattern Recognition <strong>(CVPR)</strong>, 2026
+    image: https://visualai.kaist.ac.kr/assets/thumbnails/token-warping-thumbnail.png
   
   - title: "BoxSplitGen: A Generative Model for 3D Part Bounding Boxes in Varying Granularity"
     authors: Juil Koo*, Wei-Tung Lin*, <strong>Chanho Park</strong>, Chanhyeok Park, Minhyuk Sung (* equal contributions)
