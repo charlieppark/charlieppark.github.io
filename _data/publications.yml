@@ -5,6 +5,7 @@ main:
     conference_short: MechInterp Workshop @ICML 2026
     conference: Mechanistic Interpretability Workshop @ICML 2026
     pdf: https://openreview.net/pdf?id=396ekAMv1z
+    image: https://raw.githubusercontent.com/charlieppark/charlieppark.github.io/refs/heads/main/VRH_teaser.png
 
   - title: "Token Warping Helps MLLMs Look from Nearby Viewpoints"
     authors: Phillip Y. Lee*, <strong>Chanho Park*</strong>, Mingue Park, Seungwoo Yoo, Juil Koo, Minhyuk Sung (* equal contributions)
