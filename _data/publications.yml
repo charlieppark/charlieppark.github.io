@@ -1,9 +1,16 @@
 main:
 
+  - title: "Retrieval Heads Meet Vision: Uncovering How VLMs Locate and Extract Visual Information"
+    authors: <strong>Chanho Park</strong>, Daehyeon Choi, Jihyun Lee, Minhyuk Sung
+    conference_short: MechInterp Workshop @ICML 2026
+    conference: Mechanistic Interpretability Workshop @ICML 2026
+    pdf: https://openreview.net/pdf?id=396ekAMv1z
+
   - title: "Token Warping Helps MLLMs Look from Nearby Viewpoints"
     authors: Phillip Y. Lee*, <strong>Chanho Park*</strong>, Mingue Park, Seungwoo Yoo, Juil Koo, Minhyuk Sung (* equal contributions)
     conference_short: CVPR
     conference: The IEEE/CVF Conference on Computer Vision and Pattern Recognition <strong>(CVPR)</strong>, 2026
+    page: https://token-warping-mllm.github.io
     image: https://visualai.kaist.ac.kr/assets/thumbnails/token-warping-thumbnail.png
   
   - title: "BoxSplitGen: A Generative Model for 3D Part Bounding Boxes in Varying Granularity"
@@ -29,4 +36,6 @@ main:
     code: https://github.com/KAIST-Visual-AI-Group/PDS
     page: https://posterior-distillation-sampling.github.io/
     image: https://posterior-distillation-sampling.github.io/static/figures/teaser.png
+
+
 
