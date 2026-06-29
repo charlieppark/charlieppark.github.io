@@ -2,7 +2,7 @@ main:
 
   - title: "Retrieval Heads Meet Vision: Uncovering How VLMs Locate and Extract Visual Information"
     authors: <strong>Chanho Park</strong>, Daehyeon Choi, Jihyun Lee, Minhyuk Sung
-    conference_short: MechInterp Workshop @ICML 2026
+    conference_short: MechInterp'26
     conference: Mechanistic Interpretability Workshop @ICML 2026
     pdf: https://openreview.net/pdf?id=396ekAMv1z
     image: https://raw.githubusercontent.com/charlieppark/charlieppark.github.io/refs/heads/main/VRH_teaser.png
