@@ -2,9 +2,9 @@ main:
 
   - title: "Retrieval Heads Meet Vision: Uncovering How VLMs Locate and Extract Visual Information"
     authors: <strong>Chanho Park</strong>, Daehyeon Choi, Jihyun Lee, Minhyuk Sung
-    conference_short: MechInterp'26
-    conference: Mechanistic Interpretability Workshop @ICML 2026
-    pdf: https://openreview.net/pdf?id=396ekAMv1z
+    conference_short: NeurIPS
+    conference: NeurIPS 2026
+    pdf: https://arxiv.org/pdf/2608.27417
     image: https://raw.githubusercontent.com/charlieppark/charlieppark.github.io/refs/heads/main/VRH_teaser.png
 
   - title: "Token Warping Helps MLLMs Look from Nearby Viewpoints"
