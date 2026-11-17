@@ -1,0 +1,507 @@
+---
+// Home-page story: a sticky 3D token field; a self-portrait, then the bio told in four chapters.
+import { getCollection } from 'astro:content';
+import fig1 from '../data/fig1.json';
+import { LEGEND, legendHTML } from '../scripts/token-field/legend';
+const scenes = fig1.scenes;
+// Papers for the Chapter 0 cards, newest first.
+const papers = (await getCollection('publications'))
+  .sort((a, b) => b.data.date.localeCompare(a.data.date))
+  .map((p) => ({ id: p.id, title: p.data.title, venue: p.data.venue, year: p.data.year, thumb: p.data.thumb }));
+const tEnd = fig1.video.frames[fig1.video.frames.length - 1].t; // the last frame is "now"
+---
+<section class="story" aria-label="Introduction" data-papers={JSON.stringify(papers)}>
+  <div class="stage" data-stage>
+    <canvas class="field" data-canvas aria-label="Interactive 3D field of image tokens. Hover to query a token, drag to change viewpoint, click to send a ripple."></canvas>
+    <img class="fallback" src="/img/profile.jpeg" alt="" />
+
+    <div class="qlabel" data-qlabel hidden><span class="mono">Q</span> <span data-qtext></span></div>
+    <div class="ctag mono" data-ctag hidden></div>
+    <!-- Chapter 0: lines from the retrieval heads to where they look, the model's box, the hand-labeled box. -->
+    <svg class="vlayer" data-vlayer aria-hidden="true">
+      <g data-vlines></g>
+      <polygon class="gt" data-vgt />
+      <polygon class="pred" data-vpred />
+    </svg>
+    <div class="bubble" data-bubble hidden>hey — my glasses!</div>
+    <div class="mtag mono" data-mtag hidden></div>
+    <div class="vrh stage-vrh mono" data-vrh hidden></div>
+    <ul class="legend stage-legend mono" data-legend aria-label="What the marks mean" set:html={legendHTML(LEGEND[0])}></ul>
+    <div class="boxtag mono" data-boxtag="0" hidden></div>
+    <div class="boxtag mono" data-boxtag="1" hidden></div>
+    {[0, 1, 2, 3, 4, 5].map((i) => <div class="ftag mono" data-ftag={i} hidden></div>)}
+    <!-- Chapter IV: the clip the five frames came from; it plays as the live plate of tokens. -->
+    <video class="clip" data-clip src="/fig1/video/clip.mp4" muted playsinline preload="none" aria-hidden="true"></video>
+
+    <ol class="rail mono" aria-hidden="true">
+      <li data-rail="0">0</li><li data-rail="1">I</li><li data-rail="2">II</li><li data-rail="3">III</li><li data-rail="4">IV</li>
+    </ol>
+
+    <div class="hud">
+      <div class="picker" role="group" aria-label="Choose an image">
+        {scenes.map((s, i) => (
+          <button type="button" data-scene={i} aria-pressed={i === 0 ? 'true' : 'false'} aria-label={`Image: ${s.id}`}>
+            <img src={s.image} alt="" />
+          </button>
+        ))}
+      </div>
+      <p class="credit mono" data-credit>{scenes[0].credit} · {scenes[0].grid[0]}×{scenes[0].grid[1]} tokens</p>
+    </div>
+  </div>
+
+  <div class="chapters">
+    <article class="chapter c0" data-chapter="0">
+      <div class="card">
+        <!-- Phones: the heads panel appears here, right under the photo, once something on it is tapped. -->
+        <div class="vrh card-vrh mono" data-vrh></div>
+        <p class="kicker mono">KAIST Visual AI Group · Graduate School of Metaverse</p>
+        <h1 class="title">Chanho<br />Park</h1>
+        <p class="lede">
+          Can multimodal models actually <em>use</em> what they see — and can we verify that they do?
+        </p>
+        <p class="meta mono">
+          M.S. student advised by <a href="https://mhsung.github.io/">Prof. Minhyuk Sung</a>
+        </p>
+        <p class="venues mono">
+          {papers.map((p, i) => <>{i > 0 && ' · '}<a href={`/papers/#${p.id}`}>{p.venue} ’{String(p.year).slice(2)}</a></>)}
+        </p>
+        <p class="live" data-live="0" aria-live="polite"></p>
+        <ul class="legend card-legend mono" set:html={legendHTML(LEGEND[0])}></ul>
+        <p class="hint mono"><span class="dot"></span> move · click · swipe · scroll ↓</p>
+      </div>
+    </article>
+
+    <article class="chapter" data-chapter="1">
+      <div class="card">
+        <div class="bio">
+        <p class="num mono">I. The question</p>
+        <p>
+          My research asks whether multimodal models can actually use the information available to them—and how we
+          can verify that they do. Spatial information may be present in an image yet encoded in a form that a model
+          cannot effectively exploit.
+        </p>
+        </div>
+        <div class="inst">
+        <ul class="legend card-legend mono" set:html={legendHTML(LEGEND[1])}></ul>
+        <div class="probe">
+          <div class="chips" data-pchips role="group" aria-label="Questions"></div>
+          <p class="answer" data-panswer aria-live="polite"></p>
+        </div>
+        <p class="live" data-live="1" aria-live="polite"></p>
+        <p class="fig mono"><b>Fig. 1.</b> Same photo, two questions: one in the camera’s frame, one from another point of view. Answers and top-20 retrieval-head attention from Qwen2.5-VL-7B (MLX 4-bit, run locally); boxes and ground truth are hand-labeled.</p>
+      </div>
+      </div>
+    </article>
+
+    <article class="chapter" data-chapter="2">
+      <div class="card">
+        <div class="bio">
+        <p class="num mono">II. Use</p>
+        <p>
+          In <a href="/papers/#apc">Perspective-Aware Reasoning</a> and <a href="/papers/#token-warping">Token
+          Warping</a>, I address this by transforming the representations that models reason over rather than the
+          pixels themselves.
+        </p>
+        </div>
+        <div class="inst">
+        <ul class="legend card-legend mono" set:html={legendHTML(LEGEND[2])}></ul>
+        <p class="live" data-live="2" aria-live="polite"></p>
+        <p class="fig mono"><b>Fig. 2.</b> Token warping, live: each token is placed by its estimated depth (Depth Anything V2) and turned to face the camera — nothing is re-rendered. Drag for another nearby viewpoint (±25°).</p>
+      </div>
+      </div>
+    </article>
+
+    <article class="chapter" data-chapter="3">
+      <div class="card">
+        <div class="bio">
+        <p class="num mono">III. Verify</p>
+        <p>
+          But improved accuracy alone does not show that a model relied on the right evidence. In <a
+          href="/papers/#vrh">Retrieval Heads Meet Vision</a>, I identify a small set of attention heads—<strong>Visual
+          Retrieval Heads</strong>—that carry visual evidence, and causally test their role in grounding by masking them.
+        </p>
+        </div>
+        <div class="inst">
+        <ul class="legend card-legend mono" set:html={legendHTML(LEGEND[3])}></ul>
+        <div class="probe" data-probe>
+          <div class="chips" data-chips role="group" aria-label="Questions"></div>
+          <div class="views mono" data-views role="group" aria-label="Attention heads"></div>
+          <label class="switch mono">
+            <input type="checkbox" data-mask />
+            <span class="track" aria-hidden="true"></span>
+            mask retrieval heads
+          </label>
+          <p class="answer" data-answer aria-live="polite"></p>
+        </div>
+        <p class="live" data-live="3" aria-live="polite"></p>
+        <p class="fig mono"><b>Fig. 3.</b> Attention from the question to image tokens. <span data-provenance>Loading attention extracted from Qwen2.5-VL-7B…</span></p>
+      </div>
+      </div>
+    </article>
+
+    <article class="chapter" data-chapter="4">
+      <div class="card">
+        <div class="bio">
+        <p class="num mono">IV. Over time</p>
+        <p>
+          I am now extending this line of inquiry over time: asking what long-horizon models should retain in memory,
+          when stale internal states should be revised, and how these mechanisms can support multimodal agents that
+          perceive, reason, and interact in real-world environments.
+        </p>
+        </div>
+        <div class="inst">
+        <ul class="legend card-legend mono" set:html={legendHTML(LEGEND[4])}></ul>
+        <div class="player" data-player>
+          <button type="button" class="play mono" data-play aria-label="Play the video">▶</button>
+          <div class="track-wrap">
+            <input class="seek" type="range" min="0" max={tEnd} step="0.01" value={tEnd} data-seek aria-label="Video time (seconds)" />
+            <div class="thumbs">
+              {fig1.video.frames.map((f, i) => (
+                <button type="button" data-thumb-frame={i} style={`left: ${(100 * f.t) / tEnd}%`} aria-label={`Frame ${i + 1}, ${f.t.toFixed(1)} s`}>
+                  <img src={f.image} alt="" />
+                  <span class="mono">{i + 1}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+          <span class="tnow mono" data-tnow>{tEnd.toFixed(1)} s</span>
+        </div>
+        <div class="probe">
+          <p class="qline mono">Q · {fig1.video.question} <span class="qwhen" data-qwhen>asked at t = {tEnd.toFixed(1)} s</span></p>
+          <label class="switch mono">
+            <input type="checkbox" data-memmask />
+            <span class="track" aria-hidden="true"></span>
+            mask retrieval heads
+          </label>
+          <p class="answer" data-memanswer aria-live="polite"></p>
+        </div>
+        <p class="live" data-live="4" aria-live="polite"></p>
+        <p class="fig mono"><b>Fig. 4.</b> <a href="https://commons.wikimedia.org/wiki/File:Bombus_terrestris_rolling_ball.webm">A bumblebee rolling a ball</a> (CC BY 4.0) plays as tokens; every 1.5 s a frame drops into memory — the five frames the model is given. <span data-memprov>Loading attention extracted from Qwen2.5-VL-7B…</span></p>
+      </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<script>
+  import { mountStory } from '../scripts/token-field/story';
+  mountStory();
+</script>
+
+<style>
+  .story { position: relative; }
+  .stage {
+    position: sticky; top: 0; z-index: 0; height: 100vh; height: 100svh; overflow: hidden;
+    margin: 0 calc(50% - 50vw);
+  }
+  .stage:global(.c0) .field { cursor: grab; }
+  .bubble {
+    position: absolute; left: 0; top: 0; pointer-events: none; white-space: nowrap;
+    translate: -50% calc(-100% - 14px); font: 500 .85rem var(--font-body);
+    background: var(--bg); color: var(--ink); border: 1px solid var(--ink); border-radius: 14px; padding: .3rem .75rem;
+    animation: pop .25s ease-out;
+  }
+  .bubble::after {
+    content: ''; position: absolute; left: 50%; bottom: -6px; width: 10px; height: 10px; background: var(--bg);
+    border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); transform: translateX(-50%) rotate(45deg);
+  }
+  @keyframes pop { from { scale: .6; opacity: 0; } }
+  .stage:global(.c0.knockable) .field { cursor: pointer; }
+  /* Chapter 0 readouts on the photo: the model's answers right next to what they are about. */
+  .mtag {
+    position: absolute; left: 0; top: 0; pointer-events: none; display: grid; gap: .18rem; min-width: 13.5rem;
+    font-size: .66rem; line-height: 1.35; color: var(--ink); translate: -50% 0;
+    background: color-mix(in oklab, var(--bg) 88%, transparent); backdrop-filter: blur(6px);
+    border: 1px solid var(--rule); border-radius: 6px; padding: .45rem .65rem;
+  }
+  .mtag[hidden] { display: none; }
+  .mtag :global(.t) { color: var(--muted); font-size: .6rem; letter-spacing: .02em; }
+  .mtag :global(.r) { display: flex; justify-content: space-between; align-items: baseline; gap: .8rem; }
+  .mtag :global(i) { font-style: normal; color: var(--muted); }
+  .mtag :global(b) { font-weight: 500; margin-left: .25rem; }
+  .mtag :global(.ok) { color: var(--muted); }
+  .mtag :global(.bad) { color: var(--accent); }
+
+  /* Chapter 0 overlay: head → token lines (attention), the model's box (accent), the hand-labeled box (dashed ink). */
+  .vlayer { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+  .vlayer :global(path) { fill: none; stroke: var(--accent); stroke-width: 1; opacity: .55; }
+  .vlayer polygon { fill: none; opacity: 0; transition: opacity .25s; }
+  .vlayer polygon:global(.on) { opacity: 1; }
+  .vlayer .gt { stroke: var(--ink); stroke-width: 1.2; stroke-dasharray: 4 3; }
+  .vlayer .pred { stroke: var(--accent); stroke-width: 2.2; }
+
+  /* The model's 784 attention heads (28 layers × 28 heads); the 20 retrieval heads lit. */
+  .vrh { font-size: .64rem; line-height: 1.4; color: var(--ink); display: flex; gap: .9rem; align-items: flex-start; }
+  .vrh[hidden] { display: none; }
+  .stage-vrh {
+    position: absolute; left: 0; top: 0; pointer-events: auto; padding: .6rem .7rem; border-radius: 6px;
+    background: color-mix(in oklab, var(--bg) 82%, transparent); backdrop-filter: blur(6px);
+    border: 1px solid color-mix(in oklab, var(--rule) 70%, transparent);
+  }
+  .card-vrh { display: none; }
+  .vrh :global(.grid) { flex: none; display: block; }
+  .vrh :global(.grid rect) { fill: color-mix(in oklab, var(--ink) 9%, transparent); }
+  .vrh :global(.grid rect.v) { fill: var(--accent); }
+  .vrh :global(.grid rect.v.off) { fill: none; stroke: var(--accent); stroke-width: 1; }
+  .vrh :global(.grid rect.r) { fill: var(--ink); }
+  .vrh :global(.grid rect.r.off) { fill: none; stroke: var(--ink); stroke-width: 1; }
+  .vrh :global(.side) { display: grid; gap: .35rem; min-width: 12.5rem; max-width: 15rem; }
+  .vrh :global(.t) { color: var(--muted); }
+  .vrh :global(.q) { font: 400 .82rem/1.35 var(--font-body); }
+  .vrh :global(.seg) { display: flex; flex-wrap: wrap; gap: .25rem; }
+  .vrh :global(.seg button) {
+    all: unset; cursor: pointer; padding: .18rem .5rem; border-radius: 99px; border: 1px solid var(--rule); color: var(--muted);
+  }
+  .vrh :global(.seg button:hover) { color: var(--ink); border-color: var(--muted); }
+  .vrh :global(.seg button[aria-pressed='true']) { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+  .vrh :global(.seg button:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .vrh :global(.res b) { font-weight: 500; }
+  .vrh :global(.res .ok) { color: var(--ink); }
+  .vrh :global(.res .bad) { color: var(--accent); }
+  .vrh :global(.res .part) { color: var(--ink); opacity: .75; }
+  .vrh :global(.key) { color: var(--muted); font-size: .58rem; }
+  .vrh :global(.key i) { display: inline-block; width: .9rem; height: .55rem; vertical-align: -1px; margin-right: .25rem; }
+  .vrh :global(.key .kp) { border: 2px solid var(--accent); }
+  .vrh :global(.key .kg) { border: 1px dashed var(--ink); }
+  .stage:global(.c0) .stage-legend, .stage:global(.c0) .credit { display: none; } /* the heads panel takes that corner */
+  .field { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: pan-y; cursor: crosshair; }
+  .fallback { display: none; }
+  .stage.no-webgl .field { display: none; }
+  .stage.no-webgl .fallback {
+    display: block; position: absolute; right: 6vw; top: 50%; translate: 0 -50%; width: min(46vw, 640px);
+    border-radius: 6px; border: 1px solid var(--rule);
+  }
+
+  /* Labels that follow 3D positions */
+  .qlabel {
+    position: absolute; left: 0; top: 0; pointer-events: none;
+    max-width: min(30rem, calc(100vw - 2rem)); text-align: center; line-height: 1.3;
+    translate: -50% calc(-100% - 18px);
+    font: 500 .8rem var(--font-body); padding: .35rem .7rem; border-radius: 99px;
+    background: var(--accent); color: var(--accent-ink); box-shadow: 0 6px 24px -10px var(--accent);
+  }
+  .qlabel .mono { font: 500 .65rem var(--font-mono); opacity: .8; }
+  .ctag {
+    position: absolute; left: 0; top: 0; pointer-events: none; white-space: nowrap;
+    translate: 14px 14px; font-size: .66rem; color: var(--ink);
+    background: color-mix(in oklab, var(--bg) 85%, transparent); border: 1px solid var(--rule);
+    padding: .2rem .45rem; border-radius: 3px; backdrop-filter: blur(6px);
+  }
+
+  /* Legend: one mark = one meaning across the story */
+  .legend { list-style: none; margin: 0; padding: 0; font-size: .64rem; line-height: 1.35; color: var(--muted); }
+  .legend :global(li) { display: flex; align-items: center; gap: .55rem; margin: .32rem 0; }
+  .legend :global(.sw) { flex: none; width: 1.15rem; height: .8rem; position: relative; display: inline-block; }
+  .legend :global(.sw-tile) { background: linear-gradient(135deg, #8aa06a, #c9a46a); border-radius: 1px; }
+  .legend :global(.sw-outline) { border: 1.5px solid var(--ink); border-radius: 1px; }
+  .legend :global(.sw-heat) { background: linear-gradient(90deg, var(--heat-1), var(--heat-3), var(--heat-4)); border-radius: 1px; }
+  .legend :global(.sw-line) { height: 0; border-top: 2px solid var(--accent); width: 1.15rem; }
+  .legend :global(.sw-box) { border: 1px solid var(--ink); background: transparent; }
+  .legend :global(.sw-gap) {
+    background: linear-gradient(90deg, #b9a98c 0 40%, transparent 40% 60%, #b9a98c 60%); border-radius: 1px;
+  }
+  .legend :global(.sw-depth) {
+    background: linear-gradient(#b9a98c, #b9a98c) 0 100% / 40% 55% no-repeat, linear-gradient(#8a7b62, #8a7b62) 100% 0 / 40% 100% no-repeat;
+  }
+  .legend :global(.sw-stack) {
+    background: linear-gradient(#b9a98c, #b9a98c) 0 100% / 60% 60% no-repeat, linear-gradient(#d8cdb8, #d8cdb8) 100% 0 / 60% 60% no-repeat;
+  }
+  .legend :global(.sw-ink) { background: repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 4px); opacity: .55; border-radius: 1px; }
+  .legend :global(.sw-paper) { background: linear-gradient(90deg, #c9a46a 0 50%, #cfc8bb 50%); border-radius: 1px; }
+  .legend :global(.sw-fade) { background: #b9a98c; opacity: .3; border-radius: 1px; }
+  .stage-legend {
+    position: absolute; right: max(1rem, calc(50vw - 33rem)); bottom: 5.6rem; width: 17.5rem;
+    background: color-mix(in oklab, var(--bg) 80%, transparent); padding: .5rem .7rem; border-radius: 6px;
+    border: 1px solid color-mix(in oklab, var(--rule) 70%, transparent); backdrop-filter: blur(6px);
+  }
+  .card-legend { display: none; }
+
+  .boxtag, .ftag {
+    position: absolute; left: 0; top: 0; pointer-events: none; white-space: nowrap;
+    font-size: .62rem; color: var(--ink); translate: 0 calc(-100% - 6px);
+  }
+  .boxtag { background: color-mix(in oklab, var(--bg) 80%, transparent); padding: .1rem .35rem; border-radius: 2px; }
+  .ftag { color: var(--muted); background: color-mix(in oklab, var(--bg) 78%, transparent); padding: 0 .3rem; border-radius: 2px; }
+  .ftag.now { color: var(--accent); }
+
+  .live {
+    margin: 1.1rem 0 1rem !important; padding: .55rem 0 .55rem .8rem;
+    border-left: 2px solid var(--accent);
+    font: 400 .92rem/1.5 var(--font-body); color: var(--ink);
+    min-height: 3em; transition: opacity .2s;
+  }
+  .live:empty { display: none; }
+  /* Chapter 0's line changes length as you point and knock; a fixed box keeps the name from jumping. */
+  .c0 .live { min-height: 8.6rem; }
+  .live :global(b) { font: 500 .82rem var(--font-mono); color: var(--accent); }
+  .live :global(i) { font-style: italic; }
+
+  .rail {
+    position: absolute; left: max(1rem, calc(50vw - 33rem)); bottom: 2rem; margin: 0; padding: 0; list-style: none;
+    display: flex; gap: .9rem; font-size: .7rem; color: var(--muted);
+  }
+  .rail li { transition: color .3s; }
+  .rail li.on { color: var(--accent); }
+  .rail li.on::before { content: '— '; }
+
+  .hud { position: absolute; right: max(1rem, calc(50vw - 33rem)); bottom: 1.6rem; text-align: right; }
+  .picker { display: flex; gap: .4rem; justify-content: flex-end; transition: opacity .3s; }
+  .picker:global(.off) { opacity: 0; pointer-events: none; }
+  .picker button {
+    all: unset; cursor: pointer; width: 3.1rem; aspect-ratio: 4 / 3; border-radius: 4px; overflow: hidden;
+    border: 1px solid var(--rule); opacity: .55; transition: opacity .2s, transform .2s, border-color .2s;
+  }
+  .picker button:hover { opacity: .9; transform: translateY(-2px); }
+  .picker button[aria-pressed='true'] { opacity: 1; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+  .picker button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .picker img { width: 100%; height: 100%; object-fit: cover; }
+  .credit { margin: .45rem 0 0; font-size: .62rem; color: var(--muted); }
+
+  /* Chapters scroll over the sticky stage */
+  .chapters { position: relative; z-index: 1; margin-top: -100vh; margin-top: -100svh; pointer-events: none; }
+  .chapter { min-height: 100vh; min-height: 100svh; display: flex; align-items: center; }
+  .chapter + .chapter { min-height: 115vh; }
+  .card { pointer-events: auto; max-width: 27rem; }
+  .card p { margin: 0 0 1em; }
+  .card a { color: var(--accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  .card strong { font-weight: 600; }
+  .chapter:not(.c0) .card {
+    background: color-mix(in oklab, var(--bg) 82%, transparent);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border: 1px solid color-mix(in oklab, var(--rule) 70%, transparent);
+    border-radius: 8px; padding: 1.6rem 1.7rem .6rem;
+  }
+
+  .kicker { font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .title {
+    font: 400 clamp(3.6rem, 9vw, 7.2rem)/0.92 var(--font-display); letter-spacing: -0.035em;
+    margin: .2rem 0 1.4rem;
+  }
+  /* The research question is the page's main message: set large, right under the name. */
+  .lede {
+    font: 400 clamp(1.6rem, 2.6vw, 2.25rem)/1.18 var(--font-display); letter-spacing: -0.01em; max-width: 27rem;
+    text-wrap: balance;
+  }
+  .lede em { font-style: italic; color: var(--accent); }
+  .meta { font-size: .72rem; color: var(--muted); }
+  .meta a { color: var(--ink); text-decoration-color: var(--accent); }
+  .venues { font-size: .7rem; letter-spacing: .02em; color: var(--muted); }
+  .venues a { color: var(--ink) !important; text-decoration: none !important; }
+  .venues a:hover { color: var(--accent) !important; }
+  .hint { margin-top: 2.2rem !important; font-size: .68rem; color: var(--muted); display: flex; align-items: center; gap: .5rem; }
+  .dot { width: .45rem; height: .45rem; border-radius: 50%; background: var(--accent); animation: pulse 1.8s infinite; }
+  @keyframes pulse { 50% { opacity: .25; } }
+
+  .num { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+  .fig { font-size: .66rem; line-height: 1.5; color: var(--muted); border-top: 1px solid var(--rule); padding-top: .7rem; }
+  .fig b { color: var(--ink); font-weight: 500; }
+
+  .probe { margin: 1.2rem 0 1.1rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: .35rem; }
+  .chips :global(button) {
+    all: unset; cursor: pointer; font: 400 .74rem var(--font-body); padding: .3rem .7rem; border-radius: 99px;
+    border: 1px solid var(--rule); color: var(--muted); transition: all .15s;
+  }
+  .chips :global(button:hover) { color: var(--ink); border-color: var(--muted); }
+  .chips :global(button[aria-pressed='true']) { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .chips :global(.ptabs) { flex-basis: 100%; display: flex; gap: .9rem; margin-bottom: .3rem; font: 400 .66rem var(--font-mono); text-transform: uppercase; letter-spacing: .06em; }
+  .chips :global(.ptabs button) { border: 0; border-radius: 0; padding: 0 0 .1rem; border-bottom: 1px solid transparent; }
+  .chips :global(.ptabs button[aria-pressed='true']) { background: none; color: var(--accent); border-bottom-color: var(--accent); }
+  .chips :global(button[data-kind])::before { font: 500 .6rem var(--font-mono); letter-spacing: .04em; margin-right: .4em; opacity: .7; }
+  .chips :global(button[data-kind='control'])::before { content: 'CAMERA FRAME'; }
+  .chips :global(button[data-kind='perspective'])::before { content: 'OTHER VIEWPOINT'; }
+  .chips :global(button:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .views { display: flex; flex-wrap: wrap; gap: .25rem .9rem; margin-top: .7rem; font-size: .66rem; }
+  .views :global(button) { all: unset; cursor: pointer; color: var(--muted); border-bottom: 1px solid transparent; }
+  .views :global(button:hover) { color: var(--ink); }
+  .views :global(button[aria-pressed='true']) { color: var(--accent); border-bottom-color: var(--accent); }
+  .views :global(button:disabled) { opacity: .35; cursor: default; }
+  .views :global(button:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .qline { font-size: .72rem; color: var(--ink); margin: 0 0 .2rem !important; }
+  .qwhen { color: var(--muted); }
+
+  /* Chapter IV player: play/pause, the playhead, and the five frames the model is given, placed at their times. */
+  .clip { display: none; }
+  .player { display: grid; grid-template-columns: auto 1fr auto; align-items: start; gap: .7rem; margin: .1rem 0 1rem; }
+  .play {
+    all: unset; cursor: pointer; width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center;
+    background: var(--ink); color: var(--bg); font-size: .66rem;
+  }
+  .play:hover { background: var(--accent); color: var(--accent-ink); }
+  .play:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .track-wrap { position: relative; padding: 0 12px; }
+  .seek { width: 100%; margin: .55rem 0 0; accent-color: var(--accent); cursor: pointer; }
+  .thumbs { position: relative; height: 2.5rem; margin: .35rem 8px 0; } /* 8px: where the range's own track starts */
+  .thumbs button {
+    all: unset; cursor: pointer; position: absolute; top: 0; translate: -50% 0; width: 2.5rem; /* fixed: the last one sits at 100% */
+    display: grid; justify-items: center; gap: .1rem; opacity: .35; transition: opacity .25s;
+  }
+  .thumbs button:global(.kept) { opacity: 1; }
+  .thumbs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .thumbs img { display: block; width: 2.5rem; max-width: none; aspect-ratio: 672 / 392; border-radius: 2px; border: 1px solid var(--rule); }
+  .thumbs button:global(.kept) img { border-color: var(--accent); }
+  .thumbs span { font-size: .55rem; color: var(--muted); }
+  .tnow { font-size: .7rem; color: var(--muted); min-width: 3.2em; text-align: right; margin-top: .55rem; }
+  .switch:has(input:disabled) { opacity: .4; cursor: default; }
+  .switch { display: inline-flex; align-items: center; gap: .55rem; margin-top: .85rem; font-size: .7rem; color: var(--muted); cursor: pointer; }
+  .switch input { position: absolute; opacity: 0; }
+  .track { width: 2rem; height: 1.1rem; border-radius: 99px; background: var(--rule); position: relative; transition: background .2s; }
+  .track::after {
+    content: ''; position: absolute; top: .15rem; left: .15rem; width: .8rem; height: .8rem; border-radius: 50%;
+    background: var(--bg); transition: translate .2s;
+  }
+  .switch input:checked + .track { background: var(--ink); }
+  .switch input:checked + .track::after { translate: .9rem 0; }
+  .switch input:focus-visible + .track { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .answer { margin: .8rem 0 0 !important; font: 400 1.05rem var(--font-display); min-height: 1.5em; }
+  .answer :global(.ok) { color: var(--accent); font: 500 .7rem var(--font-mono); margin-left: .4rem; }
+  .answer :global(.same) { color: var(--muted); font: 500 .7rem var(--font-mono); margin-left: .4rem; }
+  .answer :global(.ok) { color: var(--muted); }
+  .answer :global(.bad) { color: var(--muted); font: 500 .7rem var(--font-mono); margin-left: .4rem; text-decoration: line-through; }
+
+  @media (max-width: 899px) {
+    .chapter { align-items: flex-end; padding-bottom: 4.5rem; }
+    /* Start right under the photo and grow downward, so a longer line never covers what you just poked. */
+    .chapter.c0 { align-items: flex-start; padding-top: 40svh; }
+    .c0 .live { min-height: 0; }
+    .chapter.c0 .card {
+      background: color-mix(in oklab, var(--bg) 80%, transparent); backdrop-filter: blur(8px);
+      padding: 1rem 1.1rem .2rem; border-radius: 8px;
+    }
+    .title { font-size: 3.4rem; margin-bottom: .8rem; }
+    .lede { font-size: 1.35rem; }
+    .card { font-size: .9rem; line-height: 1.5; }
+    /* Split each chapter: the bio scrolls past first, then a compact instrument card sits under the field. */
+    .chapter:not(.c0) .card {
+      background: none; border: 0; padding: 0; backdrop-filter: none; -webkit-backdrop-filter: none;
+      pointer-events: none; /* the gap between the two cards must let touches reach the field */
+    }
+    .chapter:not(.c0) .bio, .chapter:not(.c0) .inst { pointer-events: auto; }
+    .bio, .inst {
+      background: color-mix(in oklab, var(--bg) 86%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border: 1px solid color-mix(in oklab, var(--rule) 70%, transparent); border-radius: 8px; padding: 1rem 1.1rem .2rem;
+    }
+    .inst { margin-top: 55svh; }
+    .inst .fig { font-size: .6rem; }
+    /* Chapter IV: the plates are labeled on the field and the player says what's kept, so the legend goes —
+       the stack above stays in view. */
+    [data-chapter='4'] .card-legend { display: none; }
+    .player { margin-bottom: .6rem; }
+    .stage-legend { display: none; }
+    /* On phones the heads panel lives in the card, under the photo. */
+    .stage-vrh { display: none !important; }
+    .card-vrh:global(.on) { display: flex; gap: .7rem; margin: 0 0 .9rem; padding-bottom: .8rem; border-bottom: 1px solid var(--rule); }
+    .card-vrh :global(.grid) { width: 96px; height: 96px; }
+    .card-vrh :global(.side) { min-width: 0; }
+    .card-legend { display: block; margin: 0 0 .7rem; }
+    .probe { margin: .8rem 0; }
+    .answer { margin-top: .5rem !important; }
+    .live { font-size: .85rem; margin: .7rem 0 .8rem !important; }
+    /* The live line already says how to interact and what a tile is; keep the photo clear above the card. */
+    .c0 .hint, .c0 .card-legend { display: none; }
+    .hud { bottom: 1rem; }
+    .picker button { width: 2.4rem; }
+    .credit { display: none; }
+    .rail { display: none; }
+  }
+</style>

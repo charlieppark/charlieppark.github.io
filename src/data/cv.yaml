@@ -1,0 +1,44 @@
+interests: [Multimodal LLMs, Spatial Intelligence, Mechanistic Interpretability, 3D Generative Models]
+
+education:
+  - org: KAIST
+    orgUrl: https://kaist.ac.kr/
+    role: M.S., Graduate School of Metaverse
+    detail: Advisor — Minhyuk Sung
+    place: Daejeon, South Korea
+    period: Mar. 2024 – present
+  - org: Dankook University
+    role: B.S., Mobile Systems Engineering
+    detail: Top rank; full scholarship for all semesters
+    place: Yongin, South Korea
+    period: Mar. 2018 – Aug. 2023
+
+research:
+  - org: KAIST Visual AI Group
+    orgUrl: https://visualai.kaist.ac.kr/
+    role: Undergraduate Research Intern
+    detail: Advisor — Minhyuk Sung
+    period: Jun. 2023 – Feb. 2024
+  - org: Dankook University C&I Lab
+    role: Undergraduate Research Intern
+    detail: Advisor — Kyuhaeng Lee
+    period: Feb. 2021 – Jun. 2023
+
+work:
+  - org: D.pre. Inc.
+    role: Developer
+    detail: R&D on 3D representation rendering and processing
+    place: Jeonju, South Korea
+    period: Sep. 2024 – Dec. 2024
+
+service:
+  - role: Reviewer
+    items: [CVPR 2026, NeurIPS 2026, CVPR Workshop (MUSI) 2026, Computers & Graphics 2026]
+
+leadership:
+  - org: Spatial Intelligence Korea
+    role: Leader, research community (54 members)
+    period: Mar. 2026 – present
+  - org: Aegis — DKU Software & Security Club
+    role: Vice President (300+ members)
+    period: Mar. 2022 – Feb. 2023

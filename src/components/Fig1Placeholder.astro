@@ -1,0 +1,62 @@
+---
+// Static stand-in for Fig. 1 until real VRH attention data is extracted.
+// Same frame (chips · patch grid · meta · caption) so the layout is final.
+const COLS = 24, ROWS = 14;
+const g = (x: number, y: number, cx: number, cy: number, s: number, a: number) =>
+  a * Math.exp(-((x - cx) ** 2 + (y - cy) ** 2) / (2 * s * s));
+const att = (x: number, y: number) => {
+  const noise = 0.05 * Math.abs((Math.sin(x * 12.9898 + y * 78.233) * 43758.5453) % 1);
+  return Math.min(1, g(x, y, 16, 8, 1.4, 1) + g(x, y, 6, 4, 1.9, 0.26) + g(x, y, 20, 2.5, 1.1, 0.16) + noise);
+};
+// Map v∈[0,1] onto the 5-stop --heat ramp via color-mix, so cells follow the theme.
+const heat = (v: number) => {
+  const x = Math.pow(v, 0.8) * 4, i = Math.min(3, Math.floor(x)), f = Math.round((x - i) * 100);
+  return `color-mix(in oklab, var(--heat-${i}), var(--heat-${i + 1}) ${f}%)`;
+};
+const cells = Array.from({ length: ROWS * COLS }, (_, k) => heat(att(k % COLS, Math.floor(k / COLS))));
+---
+<figure class="fig1">
+  <div class="panel">
+    <div class="chips" aria-hidden="true">
+      <span class="chip on">Where is the mug?</span>
+      <span class="chip">What is left of the lamp?</span>
+      <span class="chip ghost">hover ↗</span>
+    </div>
+    <div class="grid" style={`--cols:${COLS};--rows:${ROWS}`} role="img" aria-label="Patch-level attention heatmap (placeholder)">
+      {cells.map((c) => <i style={`background:${c}`} />)}
+    </div>
+    <div class="meta">
+      <span>Layer 18 · Head 7 <em>● retrieval</em></span>
+      <span>⟲ drag to shift viewpoint</span>
+    </div>
+  </div>
+  <figcaption>
+    <b>Fig. 1.</b> Attention of a visual retrieval head in Qwen2.5-VL-7B, extracted offline. <span class="pending">Preview with placeholder attention — real data pending.</span>
+  </figcaption>
+</figure>
+
+<style>
+  .fig1 { margin: 2rem 0 0; }
+  .panel { background: var(--fig-bg); border: 1px solid var(--rule); border-radius: 6px; padding: .9rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: .75rem; }
+  .chip {
+    font: 400 .7rem var(--font-mono); padding: .2rem .6rem; border-radius: 99px;
+    border: 1px solid var(--rule); color: var(--muted);
+  }
+  .chip.on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .chip.ghost { border-style: dashed; }
+  .grid {
+    display: grid; gap: 2px;
+    grid-template-columns: repeat(var(--cols), 1fr);
+    aspect-ratio: var(--cols) / var(--rows);
+  }
+  .grid i { border-radius: 1.5px; }
+  .meta {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: .25rem 1rem;
+    margin-top: .6rem; font: 400 .7rem var(--font-mono); color: var(--muted);
+  }
+  .meta em { font-style: normal; color: var(--accent); }
+  figcaption { margin-top: .6rem; font: 400 .72rem/1.5 var(--font-mono); color: var(--muted); }
+  figcaption b { color: var(--ink); font-weight: 500; }
+  .pending { opacity: .75; }
+</style>

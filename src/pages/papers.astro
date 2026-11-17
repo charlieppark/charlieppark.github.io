@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Publication from '../components/Publication.astro';
+import { SITE } from '../lib/site';
+
+const pubs = (await getCollection('publications')).sort((a, b) => b.data.date.localeCompare(a.data.date));
+---
+<Base title="Papers" description={`Publications by ${SITE.name}.`}>
+  <div class="main">
+    <h1 class="page-title">Papers</h1>
+    <p class="lede muted">
+      Also on <a class="link" href={SITE.links.scholar}>Google Scholar</a>. Interactive figures for each paper are on the way.
+    </p>
+    <h2 class="sec">§ All publications <span>{pubs.length}</span></h2>
+    {pubs.map((p) => <Publication pub={p} full />)}
+  </div>
+</Base>
+
+<style>
+  .page-title { font-size: 2.4rem; margin-top: 2.5rem; }
+  .lede { margin: .6rem 0 0; font-size: .95rem; }
+</style>

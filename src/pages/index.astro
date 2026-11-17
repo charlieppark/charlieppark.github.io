@@ -1,0 +1,96 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import TokenStory from '../components/TokenStory.astro';
+import Publication from '../components/Publication.astro';
+import { fmtMonth, SITE } from '../lib/site';
+
+const pubs = (await getCollection('publications')).sort((a, b) => b.data.date.localeCompare(a.data.date));
+const news = (await getCollection('news')).sort((a, b) => a.id.localeCompare(b.id));
+---
+<Base overlay>
+  <TokenStory />
+
+  <div class="main after">
+    <h2 class="sec">§ News</h2>
+    <ul class="news">
+      {news.map((n) => (
+        <li>
+          <time class="mono">{fmtMonth(n.data.date)}</time>
+          <span>{n.data.paper ? <a class="link" href={`/papers/#${n.data.paper}`}>{n.data.text}</a> : n.data.text}</span>
+        </li>
+      ))}
+    </ul>
+
+    <h2 class="sec">§ Publications <a href="/papers/">all papers →</a></h2>
+    <div class="pubs" data-pubs>
+      {pubs.map((p) => <Publication pub={p} />)}
+    </div>
+
+    <p class="colophon prose">
+      Elsewhere: <a href={`mailto:${SITE.email}`}>email</a>, <a href={SITE.links.scholar}>Scholar</a>, <a
+      href={SITE.links.github}>GitHub</a>. My Erdős number is 3.<span class="sn-ref">1</span><span class="sn"><span
+      class="sn-ref">1</span>Chanho Park → Leonidas Guibas → Frances Yao → Paul Erdős.</span>
+    </p>
+  </div>
+
+  <img class="peek" data-peek alt="" aria-hidden="true" />
+</Base>
+
+<script>
+  // Floating teaser that follows the cursor over the publication list, tilting with velocity.
+  const list = document.querySelector<HTMLElement>('[data-pubs]');
+  const peek = document.querySelector<HTMLImageElement>('[data-peek]');
+  if (list && peek && matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)').matches) {
+    let x = 0, y = 0, tx = 0, ty = 0, on = false, raf = 0;
+    const tick = () => {
+      const vx = tx - x;
+      x += (tx - x) * 0.18; y += (ty - y) * 0.18;
+      peek.style.transform = `perspective(700px) translate(${x}px, ${y}px) translate(24px, -50%) rotateY(${Math.max(-18, Math.min(18, vx * 0.25))}deg) rotateZ(${Math.max(-6, Math.min(6, vx * 0.08))}deg)`;
+      if (on || Math.abs(vx) > 0.5) raf = requestAnimationFrame(tick); else raf = 0;
+    };
+    list.querySelectorAll<HTMLElement>('[data-thumb]').forEach((el) => {
+      el.addEventListener('pointerenter', (e) => {
+        peek.src = el.dataset.thumb!;
+        if (!on) { x = tx = e.clientX; y = ty = e.clientY; }
+        on = true; peek.classList.add('on');
+        if (!raf) raf = requestAnimationFrame(tick);
+      });
+      el.addEventListener('pointermove', (e) => { tx = e.clientX; ty = e.clientY; });
+    });
+    const hide = () => { on = false; peek.classList.remove('on'); };
+    list.addEventListener('pointerleave', hide);
+    // Scrolling moves the list under a still pointer without a pointerleave.
+    addEventListener('scroll', () => {
+      if (on && !list.matches(':hover')) hide();
+    }, { passive: true });
+  }
+</script>
+
+<style>
+  .after { position: relative; padding-top: 2rem; }
+  .news { list-style: none; margin: 0; padding: 0; }
+  .news li {
+    display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem;
+    padding: .55rem 0; font-size: .95rem; border-bottom: 1px dotted var(--rule);
+  }
+  .news time { font-size: .72rem; color: var(--muted); line-height: 2.1; }
+  .news a.link { color: var(--ink); text-decoration-color: var(--accent); }
+  .news a.link:hover { color: var(--accent); }
+  .colophon { margin-top: 3rem; font-size: .95rem; color: var(--muted); }
+
+  .pubs :global(.pub) { transition: padding-left .25s; }
+  .pubs :global(.pub:hover) { padding-left: .5rem; }
+  .pubs :global(.pub:hover .title) { color: var(--accent); }
+
+  .peek {
+    position: fixed; left: 0; top: 0; z-index: 30; pointer-events: none;
+    width: 300px; max-height: 200px; object-fit: contain; background: #fff;
+    border: 1px solid var(--rule); border-radius: 6px;
+    box-shadow: 0 24px 48px -18px rgb(0 0 0 / .35);
+    opacity: 0; scale: .85; transition: opacity .2s, scale .25s;
+    transform-origin: left center;
+  }
+  .peek.on { opacity: 1; scale: 1; }
+  @media (hover: none) { .peek { display: none; } }
+</style>

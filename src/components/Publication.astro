@@ -1,0 +1,61 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  pub: CollectionEntry<'publications'>;
+  /** Show the teaser thumbnail and full venue name (papers page). */
+  full?: boolean;
+}
+const { pub, full = false } = Astro.props;
+const p = pub.data;
+const equal = new Set(p.equal ?? []);
+const links = Object.entries(p.links).filter(([, v]) => v) as [string, string][];
+---
+<article class:list={['pub', { full }]} id={pub.id} data-thumb={p.thumb}>
+  <div class="venue">
+    <span>{p.venue} ’{String(p.year).slice(2)}</span>
+  </div>
+  <div class="body">
+    {full && <img class="thumb" src={p.thumb} alt="" loading="lazy" decoding="async" />}
+    <h3 class="title">{p.title}</h3>
+    <p class="authors">
+      {p.authors.map((a, i) => (
+        <>
+          {i === p.me ? <strong>{a}</strong> : a}{equal.has(i) && '*'}{i < p.authors.length - 1 && ', '}
+        </>
+      ))}
+      {equal.size > 0 && <span class="eq"> (* equal contribution)</span>}
+    </p>
+    {full && <p class="venue-full">{p.venueFull}, {p.year}{p.note && <> · {p.note}</>}</p>}
+    {links.length > 0 && (
+      <p class="links">
+        {links.map(([k, href]) => <a href={href}>{k}</a>)}
+      </p>
+    )}
+  </div>
+</article>
+
+<style>
+  .pub {
+    display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem;
+    padding: 1.1rem 0; border-bottom: 1px solid var(--rule);
+  }
+  .venue { font: 500 .72rem/1.9 var(--font-mono); color: var(--accent); white-space: nowrap; }
+  .title { font: 600 1.02rem/1.35 var(--font-body); letter-spacing: 0; }
+  .authors { margin: .2rem 0 0; font-size: .88rem; color: var(--muted); }
+  .authors strong { color: var(--ink); font-weight: 600; }
+  .eq { font-size: .8rem; }
+  .venue-full { margin: .15rem 0 0; font-size: .85rem; font-style: italic; color: var(--muted); }
+  .links { margin: .45rem 0 0; display: flex; gap: .9rem; font: 400 .72rem var(--font-mono); }
+  .links a { color: var(--muted); text-decoration: none; }
+  .links a::before { content: '['; opacity: .6; }
+  .links a::after { content: ']'; opacity: .6; }
+  .links a:hover { color: var(--accent); }
+  .thumb {
+    width: auto; max-width: 100%; max-height: 13rem; object-fit: contain;
+    border: 1px solid var(--rule); border-radius: 4px; margin-bottom: .8rem; background: #fff;
+  }
+  @media (max-width: 34rem) {
+    .pub { grid-template-columns: 1fr; gap: .2rem; }
+  }
+</style>

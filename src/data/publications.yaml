@@ -1,0 +1,71 @@
+# Newest first. `me` marks my position in `authors`; `equal` lists equal-contribution indices.
+- id: vrh
+  title: "Retrieval Heads Meet Vision: Uncovering How VLMs Locate and Extract Visual Information"
+  authors: [Chanho Park, Daehyeon Choi, Jihyun Lee, Minhyuk Sung]
+  me: 0
+  venue: NeurIPS
+  venueFull: Conference on Neural Information Processing Systems (NeurIPS)
+  year: 2026
+  date: "2026-12"
+  note: Also at the Mechanistic Interpretability Workshop @ ICML 2026
+  thumb: /papers/vrh.png
+  topics: [interpretability, vlm]
+  links:
+    paper: https://arxiv.org/pdf/2608.27417
+
+- id: token-warping
+  title: "Token Warping Helps MLLMs Look from Nearby Viewpoints"
+  authors: [Phillip Y. Lee, Chanho Park, Mingue Park, Seungwoo Yoo, Juil Koo, Minhyuk Sung]
+  me: 1
+  equal: [0, 1]
+  venue: CVPR
+  venueFull: IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)
+  year: 2026
+  date: "2026-06"
+  thumb: /papers/token-warping.png
+  topics: [spatial, vlm]
+  links:
+    page: https://token-warping-mllm.github.io
+
+- id: boxsplitgen
+  title: "BoxSplitGen: A Generative Model for 3D Part Bounding Boxes in Varying Granularity"
+  authors: [Juil Koo, Wei-Tung Lin, Chanho Park, Chanhyeok Park, Minhyuk Sung]
+  me: 2
+  equal: [0, 1]
+  venue: WACV
+  venueFull: Winter Conference on Applications of Computer Vision (WACV)
+  year: 2026
+  date: "2026-03"
+  thumb: /papers/boxsplitgen.png
+  topics: [3d, generative]
+  links: {}
+
+- id: apc
+  title: "Perspective-Aware Reasoning in Vision-Language Models via Mental Imagery Simulation"
+  authors: [Phillip Y. Lee, Jihyeon Je, Chanho Park, Mikaela Angelina Uy, Leonidas Guibas, Minhyuk Sung]
+  me: 2
+  venue: ICCV
+  venueFull: International Conference on Computer Vision (ICCV)
+  year: 2025
+  date: "2025-10"
+  thumb: /papers/apc.jpg
+  topics: [spatial, vlm]
+  links:
+    paper: https://arxiv.org/pdf/2504.17207
+    page: https://apc-vlm.github.io/
+
+- id: pds
+  title: "Posterior Distillation Sampling"
+  authors: [Juil Koo, Chanho Park, Minhyuk Sung]
+  me: 1
+  venue: CVPR
+  venueFull: IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)
+  year: 2024
+  date: "2024-06"
+  thumb: /papers/pds.png
+  topics: [generative, 3d]
+  links:
+    paper: https://arxiv.org/pdf/2311.13831
+    page: https://posterior-distillation-sampling.github.io/
+    code: https://github.com/KAIST-Visual-AI-Group/PDS
+    bibtex: https://dblp.org/rec/conf/cvpr/KooPS24.html?view=bibtex

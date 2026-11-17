@@ -1,0 +1,21 @@
+# Newest first. `paper` links to a publication id on /papers.
+- date: 2026-09
+  text: Visual Retrieval Heads accepted to NeurIPS 2026.
+  paper: vrh
+- date: 2026-06
+  text: Visual Retrieval Heads accepted to the Mechanistic Interpretability Workshop @ ICML 2026.
+  paper: vrh
+- date: 2026-03
+  text: Started leading Spatial Intelligence Korea, a research community of 50+ members.
+- date: 2026-02
+  text: Token Warping on MLLMs accepted to CVPR 2026.
+  paper: token-warping
+- date: 2025-11
+  text: BoxSplitGen (controllable 3D part generation) accepted to WACV 2026.
+  paper: boxsplitgen
+- date: 2025-06
+  text: Perspective-aware reasoning via mental imagery accepted to ICCV 2025.
+  paper: apc
+- date: 2024-02
+  text: Posterior Distillation Sampling accepted to CVPR 2024.
+  paper: pds

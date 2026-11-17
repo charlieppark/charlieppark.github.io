@@ -1,0 +1,30 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes', (n) => import.meta.env.DEV || !n.data.draft);
+  return notes.map((note) => ({ params: { id: note.id }, props: { note } }));
+}
+const { note } = Astro.props;
+const { Content } = await render(note);
+---
+<Base title={note.data.title} description={note.data.description}>
+  <article class="main">
+    <p class="date mono muted">{note.data.date.toISOString().slice(0, 10)}</p>
+    <h1 class="page-title">{note.data.title}</h1>
+    <div class="prose body">
+      <Content />
+    </div>
+  </article>
+</Base>
+
+<style>
+  .date { margin: 2.5rem 0 .4rem; font-size: .75rem; }
+  .page-title { font-size: 2.2rem; }
+  .body { margin-top: 2rem; }
+  .body :global(h2) { font-size: 1.5rem; margin: 2.2rem 0 .8rem; }
+  .body :global(code) { font: .85em var(--font-mono); background: var(--fig-bg); padding: .1em .3em; border-radius: 3px; }
+  .body :global(pre) { background: var(--fig-bg); border: 1px solid var(--rule); border-radius: 6px; padding: 1rem; overflow-x: auto; }
+  .body :global(pre code) { background: none; padding: 0; }
+</style>

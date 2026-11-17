@@ -1,0 +1,79 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { cv, SITE } from '../lib/site';
+
+const pubs = (await getCollection('publications')).sort((a, b) => b.data.date.localeCompare(a.data.date));
+const sections = [
+  ['Education', cv.education],
+  ['Research Experience', cv.research],
+  ['Work Experience', cv.work],
+  ['Leadership', cv.leadership],
+] as const;
+---
+<Base title="CV" description={`Curriculum vitae of ${SITE.name}.`}>
+  <div class="main">
+    <h1 class="page-title">Curriculum Vitae</h1>
+    <p class="lede muted mono">{SITE.email}</p>
+
+    <h2 class="sec">§ Research Interests</h2>
+    <p class="interests">{cv.interests.join(' · ')}</p>
+
+    {sections.map(([label, entries]) => (
+      <>
+        <h2 class="sec">§ {label}</h2>
+        {entries.map((e) => (
+          <div class="row">
+            <div class="what">
+              <div class="org">{e.orgUrl ? <a class="link" href={e.orgUrl}>{e.org}</a> : e.org}</div>
+              <div>{e.role}</div>
+              {e.detail && <div class="muted small">{e.detail}</div>}
+            </div>
+            <div class="when mono">
+              {e.period && <div>{e.period}</div>}
+              {e.place && <div class="muted">{e.place}</div>}
+            </div>
+          </div>
+        ))}
+      </>
+    ))}
+
+    <h2 class="sec">§ Publications</h2>
+    <ol class="pubs">
+      {pubs.map((p) => (
+        <li>
+          <a href={`/papers/#${p.id}`}>{p.data.title}</a>
+          <span class="muted"> — {p.data.venue} {p.data.year}</span>
+        </li>
+      ))}
+    </ol>
+
+    <h2 class="sec">§ Academic Service</h2>
+    {cv.service.map((s) => (
+      <p class="service"><strong>{s.role}:</strong> {s.items?.join(', ')}</p>
+    ))}
+  </div>
+</Base>
+
+<style>
+  .page-title { font-size: 2.4rem; margin-top: 2.5rem; }
+  .lede { margin: .6rem 0 0; font-size: .8rem; }
+  .interests { margin: .9rem 0 0; }
+  .row {
+    display: grid; grid-template-columns: 1fr auto; gap: 1rem;
+    padding: .9rem 0; border-bottom: 1px dotted var(--rule);
+  }
+  .org { font-weight: 600; }
+  .org a.link { color: var(--ink); text-decoration-color: var(--accent); }
+  .small { font-size: .88rem; }
+  .when { text-align: right; font-size: .72rem; line-height: 1.9; white-space: nowrap; }
+  .pubs { margin: .9rem 0 0; padding-left: 1.4rem; }
+  .pubs li { margin-bottom: .4rem; }
+  .pubs a { text-decoration: none; }
+  .pubs a:hover { color: var(--accent); }
+  .service { margin: .9rem 0 0; }
+  @media (max-width: 34rem) {
+    .row { grid-template-columns: 1fr; gap: .2rem; }
+    .when { text-align: left; }
+  }
+</style>

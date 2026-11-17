@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const notes = (await getCollection('notes', (n) => import.meta.env.DEV || !n.data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+---
+<Base title="Notes" description="Research notes by Chanho Park.">
+  <div class="main">
+    <h1 class="page-title">Notes</h1>
+    <p class="lede muted">Working notes on vision-language models, spatial reasoning, and 3D.</p>
+    <h2 class="sec">§ All notes</h2>
+    {notes.length === 0 && <p class="muted">Nothing published yet.</p>}
+    <ul>
+      {notes.map((n) => (
+        <li>
+          <time class="mono">{n.data.date.toISOString().slice(0, 10)}</time>
+          <div>
+            <a href={`/notes/${n.id}/`}>{n.data.title}</a>
+            {n.data.draft && <span class="draft mono">draft</span>}
+            <p class="muted">{n.data.description}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</Base>
+
+<style>
+  .page-title { font-size: 2.4rem; margin-top: 2.5rem; }
+  .lede { margin: .6rem 0 0; font-size: .95rem; }
+  ul { list-style: none; margin: 0; padding: 0; }
+  li { display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--rule); }
+  time { font-size: .72rem; color: var(--muted); line-height: 2.2; }
+  li a { font: 500 1.15rem var(--font-display); text-decoration: none; }
+  li a:hover { color: var(--accent); }
+  li p { margin: .2rem 0 0; font-size: .9rem; }
+  .draft { font-size: .65rem; color: var(--accent); margin-left: .5rem; }
+</style>
